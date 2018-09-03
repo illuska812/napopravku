@@ -1,29 +1,53 @@
-<div class="jumbotron">
-    <h2>Добро пожаловать в клинику <span class="zf-green">Рога и Копыта</span>!</h2>
-    <p>
-        lorem ipsum
-    </p>
-</div>
-
-<div class="row">
-    <div class="col-md-12 doctors-list">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Список врачей</h3>
-            </div>
-            <div class="panel-body item ">
-                <div class="col-md-2 photo">
-                    <img src="/img/preview.jpg">
+<div ng-controller="doctorsListController">
+    <div class="jumbotron">
+        <h2>Добро пожаловать в клинику <span class="zf-green">Рога и Копыта</span>!</h2>
+        <p>
+            lorem ipsum
+        </p>
+    </div>
+    <div ng-if="step===0" class="row">
+        loading...
+    </div>
+    <div ng-if="step===2" class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span ng-click="goToList()">Список врачей</span>
+                        <span>> {{currentDoctor.title}}</span>
+                        <span>> Запись на прием</span>
+                    </h3>
                 </div>
-                <div class="col-md-7 info ">
-                    <div class="title">DAHSKD:</div>
-                    <div class="sub-title">Информация о враче:</div>
-                    <div class="cntent">Tdsajf;adj dsa fkj;jsad </div>
+                <div class="panel-body">
+                    
                 </div>
-                <div class="col-md-3">
-                    <p><span class="btn btn-success pull-right">Записаться &raquo;</span>></p>
+            </div>            
+        </div>
+        <div class="col-md-12"></div>
+        
+    </div>
+    <div ng-if="step===1" class="row">
+        <div class="col-md-12 doctors-list">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Список врачей</h3>
+                </div>
+                <div ng-repeat="doctor in doctorsData" class="panel-body item ">
+                    <div class="col-md-2 photo">
+                        <img src="/img/preview.jpg">
+                    </div>
+                    <div class="col-md-7 info ">
+                        <div class="title">{{doctor.title}}</div>
+                        <div class="sub-title">Информация о враче:</div>
+                        <div class="cntent">{{doctor.info}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <span ng-click="startTicketing(doctor)" class="btn btn-success pull-right">Записаться &raquo;</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    
 </div>
+

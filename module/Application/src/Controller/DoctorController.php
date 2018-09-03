@@ -39,8 +39,8 @@ class DoctorController extends AbstractActionController
             $result[] = $doctor->toJsonArray();
         }
         return new JsonModel([
-            'status' => 'success',
-            'data' => $result
+            'success' => true,
+            'list' => $result
         ]);
     }
 }
