@@ -62,6 +62,7 @@ class DoctorController extends AbstractActionController
             ]);
         }
         $from = $this->params()->fromQuery('from', null);
+        $to = $this->params()->fromQuery('to', null);
         /* @var $doctor \Application\Entity\Doctor */
         $doctor = $this->entityManager->getRepository(Doctor::class)->find($doctorId);
         if(empty($doctor)){
@@ -71,9 +72,10 @@ class DoctorController extends AbstractActionController
                 'message' => "Doctor not found",
             ]);
         }
-        $fromDate = \DateTime::createFromFormat('Y-m-d', $from);
+        $fromDate = \DateTime::createFromFormat('d.m.Y', $from);
+        $toDate = \DateTime::createFromFormat('d.m.Y', $to);
         $ticketsRepository = $this->entityManager->getRepository(Ticket::class);
-        $tickets = $ticketsRepository->findTicketsByDoctor($doctor, $fromDate)->execute();
+        $tickets = $ticketsRepository->findTicketsByDoctor($doctor, $fromDate, $toDate)->execute();
         /* @var $ticket Ticket */
         foreach ($tickets as $ticket) {
             $result[] = $ticket->toJsonArray(['id', 'dates', 'user'], $userId);
@@ -85,7 +87,7 @@ class DoctorController extends AbstractActionController
     }
     
     /**
-     * НЕпосредственная запись на прием
+     * Непосредственная запись на прием
      */
     public function getTicketAction()
     {

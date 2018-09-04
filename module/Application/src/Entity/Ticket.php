@@ -99,7 +99,9 @@ class Ticket {
     {
         $title = '';
         $selfTicket = false;
+        $occupied = false;
         if($this->isOccupied()){
+            $occupied = true;
             if(!empty($userId) && (int) $this->userId === (int) $userId){
                 $title = 'Ваш номерок к врачу';
                 $selfTicket = true;
@@ -112,6 +114,7 @@ class Ticket {
         $result = [
             'id' => $this->getId(),
             'title' => $title,
+            'occupied' => $occupied,
             'selfTicket' => $selfTicket,
             'allDay' => false,
         ];

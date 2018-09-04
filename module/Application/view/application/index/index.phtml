@@ -23,12 +23,33 @@
                     <div><span>Адрес: </span><span> ул.Ленина д.1</span></div>
                     <div><span>Фио врача: </span><span>{{currentDoctor.title}}</span></div>
                     <div><span>Дата: </span><span>{{getFormatedDate()}}</span></div>
-                    <div class="row">
+                    <div ng-if="!loading && currentDoctor.selectedTicked.occupied === false && currentDoctor.selectedTicked.approved !== true" class="row">
                         <div class="col-md-5">
                             <span ng-click="goToCalendar()" class="btn btn-warning center-block">&laquo; Отмена</span>
                         </div>
                         <div class="col-md-7">
                             <span ng-click="getTicket()" class="btn btn-success center-block">Подтвердить &raquo;</span>
+                        </div>
+                    </div>
+                    <div ng-if="!loading && currentDoctor.selectedTicked.approved === true" class="row">
+                        <div class="col-md-5">
+                            <span>Вы успешно записаны ко врачу</span>
+                        </div>
+                        <div class="col-md-7">
+                            <span ng-click="goToList()" class="btn btn-success center-block">Ок</span>
+                        </div>
+                    </div>
+                    <div ng-if="!loading && currentDoctor.selectedTicked.selfTicket === true" class="row">
+                        <div class="col-md-5">
+                            <span>Это ваш номерок ко врачу</span>
+                        </div>
+                        <div class="col-md-7">
+                            <span ng-click="goToCalendar()" class="btn btn-success center-block">Назад</span>
+                        </div>
+                    </div>
+                    <div ng-if="loading" class="row">
+                        <div class="col-md-12">
+                            <span class="center-block">Подождите, идет запись ко врачу</span>
                         </div>
                     </div>
                 </div>
@@ -40,7 +61,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <span ng-click="goToList()">Список врачей</span>
+                        <span class="pseudo-link" ng-click="goToList()">Список врачей</span>
                         <span>> {{currentDoctor.title}}</span>
                         <span>> Запись на прием</span>
                     </h3>
@@ -51,9 +72,9 @@
                               event-source="currentDoctor.tickets"
                               event-selected="onEventSelected(event)"
                               no-events-label="нет приема"
-                              starting-day ="1"
-                              query-mode ="remote"
-                              range-changed ="rangeChanged"
+                              starting-day="1"
+                              query-mode="queryMode"
+                              range-changed="rangeChanged(startTime, endTime)"
                               step="30"></calendar>
                 </div>
             </div>            
@@ -83,6 +104,11 @@
             </div>
         </div>
     </div>
-    
+    <div id="dialog1" class="hide" title="Упс.">
+        <p>Это время уже занято.</p>
+    </div>
+    <div id="dialog2" class="hide" title="Упс.">
+        <p>Что-то пошло не так. обратитесь в клиентскую поддержку</p>
+    </div>
 </div>
 

@@ -52,14 +52,16 @@ div.container a.navbar-brand > img {
     background-color: #ff81003b;
 }
 
-.monthview-datetable tbody td:nth-child(7):not(.monthview-selected), .monthview-datetable tbody td:nth-child(8):not(.monthview-selected){
-    background-color: #ff81000a;
-}
-
 .ticket-info {
     font-size: 1.2em;
     line-height: 2em;
 }
 .ticket-info .row {
     margin-top: 20px;
+}
+
+.pseudo-link {
+    cursor: pointer;
+    text-decoration: none;
+    border-bottom: 1px dashed
 }
