@@ -1,14 +1,41 @@
 <div ng-controller="doctorsListController">
-    <div class="jumbotron">
+    <div ng-if="step!==3" class="jumbotron">
         <h2>Добро пожаловать в клинику <span class="zf-green">Рога и Копыта</span>!</h2>
         <p>
             lorem ipsum
         </p>
     </div>
-    <div ng-if="step===0" class="row">
+    <div ng-show="step===0" class="row">
         loading...
     </div>
-    <div ng-if="step===2" class="row">
+    <div ng-show="step===3" class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Номерок на посещение врача
+                        <span>> {{currentDoctor.title}}</span>
+                        <span>> Запись на прием</span>
+                    </h3>
+                </div>
+                <div class="panel-body ticket-info">
+                    <div><span>Клиника: </span><span>"Рога и копыта"</span></div>
+                    <div><span>Адрес: </span><span> ул.Ленина д.1</span></div>
+                    <div><span>Фио врача: </span><span>{{currentDoctor.title}}</span></div>
+                    <div><span>Дата: </span><span>{{getFormatedDate()}}</span></div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <span ng-click="goToCalendar()" class="btn btn-warning center-block">&laquo; Отмена</span>
+                        </div>
+                        <div class="col-md-7">
+                            <span ng-click="getTicket()" class="btn btn-success center-block">Подтвердить &raquo;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+    <div ng-show="step===2" class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -19,14 +46,22 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    
+                    <calendar ng-model="currentDate"
+                              calendar-mode="mode"
+                              event-source="currentDoctor.tickets"
+                              event-selected="onEventSelected(event)"
+                              no-events-label="нет приема"
+                              starting-day ="1"
+                              query-mode ="remote"
+                              range-changed ="rangeChanged"
+                              step="30"></calendar>
                 </div>
             </div>            
         </div>
         <div class="col-md-12"></div>
         
     </div>
-    <div ng-if="step===1" class="row">
+    <div ng-show="step===1" class="row">
         <div class="col-md-12 doctors-list">
             <div class="panel panel-default">
                 <div class="panel-heading">

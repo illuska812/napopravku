@@ -15,10 +15,12 @@
             ->prependStylesheet($this->basePath('css/style.css'))
             ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
             ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+            ->prependStylesheet($this->basePath('css/calendar.min.css'))
         ?>
 
         <!-- Scripts -->
         <?= $this->headScript()
+            ->prependFile($this->basePath('js/calendar-tpls.min.js'))
             ->prependFile($this->basePath('js/app.js'))
             ->prependFile($this->basePath('js/angular.min.js'))
             ->prependFile($this->basePath('js/bootstrap.min.js'))

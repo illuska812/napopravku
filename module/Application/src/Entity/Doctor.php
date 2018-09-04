@@ -97,5 +97,4 @@ class Doctor {
         }
         return $result;
     }
-
 }
